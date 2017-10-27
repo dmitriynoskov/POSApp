@@ -334,7 +334,50 @@ namespace NewSaleApp
 
         private void ReturnBtn_Click(object sender, EventArgs e)
         {
+            retNumber.Visible = !retNumber.Visible;
+            if (retNumber.Visible)
+            {
+                MessageBox.Show("Ввведите номер чека продажи", "Возврат товара");
+                retNumber.Focus();
+            }
+        }
 
+        private void retNumber_Leave(object sender, EventArgs e)
+        {
+            DataSet ds1 = _accessDL.DefineReturnSale(retNumber.Text.Trim());
+
+            if (ds1.Tables[0].Rows.Count == 0)
+            {
+                MessageBox.Show("Чек не найден!");
+                ReturnBtn_Click(null, null);
+            }
+            else
+            {
+                foreach (DataRow row in ds1.Tables[0].Rows)
+                {
+                    string id = row.ItemArray.GetValue(1).ToString();
+                    string fullName = row.ItemArray.GetValue(2).ToString();
+                    int quantity = int.Parse(row.ItemArray.GetValue(4).ToString());
+                    decimal price = decimal.Parse(row.ItemArray.GetValue(3).ToString());
+                    decimal priceUpd = decimal.Parse(row.ItemArray.GetValue(3).ToString());
+
+                    dataGridView1.Rows.Add(id, fullName, quantity, price, priceUpd);
+                }
+                
+
+            }
+        }
+
+        private void retNumber_TextChanged(object sender, EventArgs e)
+        {
+        }
+
+        private void retNumber_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (!char.IsDigit(e.KeyChar))
+            {
+                e.Handled = true;
+            }
         }
     }
 }

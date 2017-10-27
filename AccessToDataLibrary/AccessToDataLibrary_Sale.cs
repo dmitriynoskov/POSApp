@@ -475,6 +475,10 @@ namespace AccessToDataLibrary
             return ds1;
         }
 
+        /// <summary>
+        /// Поиск разновидностей по модели
+        /// </summary>
+        /// <returns></returns>
         public List<string> CheckSameModel()
         {
             string query =
@@ -497,6 +501,29 @@ namespace AccessToDataLibrary
             }
 
             return res;
+        }
+
+        /// <summary>
+        /// Поиск чека продажи для операции "Возврат"
+        /// </summary>
+        /// <param name="saleID">Номер чека продажи</param>
+        /// <returns></returns>
+        public DataSet DefineReturnSale(string saleID)
+        {
+            string query =
+                "SELECT R.ID, P.ID, P.FullName, RS.Price, RS.Quantity, RS.TotalAmount, R.Nal, R.TotalAmount, R.VISA, PS.Name" + 
+                " FROM RASHOD as R INNER JOIN RASHODSUB as RS ON R.Id = RS.RashodID INNER JOIN PRODUCT as P ON RS.ProductID = P.Id" +
+                " LEFT JOIN PERSON as PS ON R.ClientID = PS.ID WHERE R.Id = '" + saleID + "'";
+
+            DataSet ds1 = new DataSet();
+
+            using (SqlConnection con = new SqlConnection(provider.conString))
+            {
+                SqlDataAdapter da = new SqlDataAdapter(query, con);
+                da.Fill(ds1);
+            }
+
+            return ds1;
         }
     }
 }

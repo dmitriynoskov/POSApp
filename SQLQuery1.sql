@@ -64,3 +64,10 @@ SELECT P.FullName, S.Quantity
 FROM PRODUCT as P
 INNER JOIN STOCK as S ON P.Id = S.ProductID
 WHERE P.Code='261518'
+
+SELECT R.ID, P.FullName, RS.Price, RS.Quantity, RS.TotalAmount, R.Nal, R.TotalAmount, R.VISA, PS.Name
+FROM RASHOD as R
+INNER JOIN RASHODSUB as RS ON R.Id=RS.RashodID
+INNER JOIN PRODUCT as P ON RS.ProductID=P.Id
+LEFT JOIN PERSON as PS ON R.ClientID=PS.ID
+WHERE R.Id='20'
