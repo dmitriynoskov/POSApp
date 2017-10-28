@@ -1,4 +1,6 @@
-﻿namespace NewSaleApp
+﻿using System.Windows.Forms;
+
+namespace NewSaleApp
 {
     partial class SaleForm
     {
@@ -28,11 +30,11 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle21 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle22 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle23 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle24 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle25 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
             this.ID = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.ItemName = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -47,7 +49,7 @@
             this.ToPayTxBx = new MetroFramework.Controls.MetroTextBox();
             this.PayBtn = new MetroFramework.Controls.MetroButton();
             this.clientLbl = new MetroFramework.Controls.MetroLabel();
-            this.deleteBtn = new System.Windows.Forms.Button();
+            this.deleteBtn = new MetroFramework.Controls.MetroButton();
             this.ClientDiscLbl = new MetroFramework.Controls.MetroLabel();
             this.fullNameTxBx = new MetroFramework.Controls.MetroTextBox();
             this.encreaseItemsBtn = new MetroFramework.Controls.MetroButton();
@@ -55,7 +57,7 @@
             this.DiscSumTxBx = new MetroFramework.Controls.MetroTextBox();
             this.ReturnBtn = new MetroFramework.Controls.MetroButton();
             this.AkciyaLbl = new System.Windows.Forms.Label();
-            this.panel1 = new System.Windows.Forms.Panel();
+            this.panel1 = new MetroFramework.Controls.MetroPanel();
             this.listBox1 = new System.Windows.Forms.ListBox();
             this.retNumber = new MetroFramework.Controls.MetroTextBox();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
@@ -68,14 +70,14 @@
             this.dataGridView1.AllowUserToDeleteRows = false;
             this.dataGridView1.AllowUserToResizeColumns = false;
             this.dataGridView1.AllowUserToResizeRows = false;
-            dataGridViewCellStyle21.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle21.BackColor = System.Drawing.SystemColors.ActiveCaption;
-            dataGridViewCellStyle21.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            dataGridViewCellStyle21.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle21.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle21.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle21.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dataGridView1.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle21;
+            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.ActiveCaption;
+            dataGridViewCellStyle1.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dataGridView1.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
             this.dataGridView1.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.ID,
             this.ItemName,
@@ -107,10 +109,10 @@
             // 
             // ItemName
             // 
-            dataGridViewCellStyle22.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            dataGridViewCellStyle22.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle22.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            this.ItemName.DefaultCellStyle = dataGridViewCellStyle22;
+            dataGridViewCellStyle2.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            this.ItemName.DefaultCellStyle = dataGridViewCellStyle2;
             this.ItemName.HeaderText = "Наименование";
             this.ItemName.Name = "ItemName";
             this.ItemName.ReadOnly = true;
@@ -119,13 +121,13 @@
             // 
             // Items
             // 
-            dataGridViewCellStyle23.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle23.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            dataGridViewCellStyle23.Format = "N2";
-            dataGridViewCellStyle23.NullValue = null;
-            dataGridViewCellStyle23.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle23.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            this.Items.DefaultCellStyle = dataGridViewCellStyle23;
+            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle3.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            dataGridViewCellStyle3.Format = "N2";
+            dataGridViewCellStyle3.NullValue = null;
+            dataGridViewCellStyle3.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            this.Items.DefaultCellStyle = dataGridViewCellStyle3;
             this.Items.HeaderText = "Кол-во";
             this.Items.Name = "Items";
             this.Items.ReadOnly = true;
@@ -133,13 +135,13 @@
             // 
             // Price
             // 
-            dataGridViewCellStyle24.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle24.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            dataGridViewCellStyle24.Format = "C2";
-            dataGridViewCellStyle24.NullValue = null;
-            dataGridViewCellStyle24.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle24.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            this.Price.DefaultCellStyle = dataGridViewCellStyle24;
+            dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle4.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            dataGridViewCellStyle4.Format = "C2";
+            dataGridViewCellStyle4.NullValue = null;
+            dataGridViewCellStyle4.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle4.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            this.Price.DefaultCellStyle = dataGridViewCellStyle4;
             this.Price.HeaderText = "Цена";
             this.Price.Name = "Price";
             this.Price.ReadOnly = true;
@@ -148,13 +150,13 @@
             // 
             // PriceDisc
             // 
-            dataGridViewCellStyle25.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle25.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            dataGridViewCellStyle25.Format = "C2";
-            dataGridViewCellStyle25.NullValue = null;
-            dataGridViewCellStyle25.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle25.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            this.PriceDisc.DefaultCellStyle = dataGridViewCellStyle25;
+            dataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle5.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            dataGridViewCellStyle5.Format = "C2";
+            dataGridViewCellStyle5.NullValue = null;
+            dataGridViewCellStyle5.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle5.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            this.PriceDisc.DefaultCellStyle = dataGridViewCellStyle5;
             this.PriceDisc.HeaderText = "Цена со скидкой";
             this.PriceDisc.Name = "PriceDisc";
             this.PriceDisc.ReadOnly = true;
@@ -249,7 +251,6 @@
             this.deleteBtn.Size = new System.Drawing.Size(83, 58);
             this.deleteBtn.TabIndex = 6;
             this.deleteBtn.Text = "X";
-            this.deleteBtn.UseVisualStyleBackColor = true;
             this.deleteBtn.Click += new System.EventHandler(this.deleteBtn_Click);
             // 
             // ClientDiscLbl
@@ -319,7 +320,6 @@
             // AkciyaLbl
             // 
             this.AkciyaLbl.BackColor = System.Drawing.Color.Yellow;
-            this.AkciyaLbl.Font = new System.Drawing.Font("Microsoft Sans Serif", 16.2F, System.Drawing.FontStyle.Bold);
             this.AkciyaLbl.ForeColor = System.Drawing.Color.Red;
             this.AkciyaLbl.Location = new System.Drawing.Point(449, 111);
             this.AkciyaLbl.Name = "AkciyaLbl";
@@ -333,17 +333,23 @@
             // 
             this.panel1.BackColor = System.Drawing.Color.Silver;
             this.panel1.Controls.Add(this.listBox1);
+            this.panel1.HorizontalScrollbarBarColor = true;
+            this.panel1.HorizontalScrollbarHighlightOnWheel = false;
+            this.panel1.HorizontalScrollbarSize = 10;
             this.panel1.Location = new System.Drawing.Point(1096, 284);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(425, 420);
             this.panel1.TabIndex = 8;
+            this.panel1.VerticalScrollbarBarColor = true;
+            this.panel1.VerticalScrollbarHighlightOnWheel = false;
+            this.panel1.VerticalScrollbarSize = 10;
             // 
             // listBox1
             // 
             this.listBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 13.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.listBox1.FormattingEnabled = true;
             this.listBox1.ItemHeight = 29;
-            this.listBox1.Location = new System.Drawing.Point(24, 24);
+            this.listBox1.Location = new System.Drawing.Point(27, 39);
             this.listBox1.Name = "listBox1";
             this.listBox1.Size = new System.Drawing.Size(372, 352);
             this.listBox1.TabIndex = 0;
@@ -407,22 +413,22 @@
         private MetroFramework.Controls.MetroTextBox ToPayTxBx;
         private MetroFramework.Controls.MetroButton PayBtn;
         private MetroFramework.Controls.MetroLabel clientLbl;
-        private System.Windows.Forms.Button deleteBtn;
         private MetroFramework.Controls.MetroLabel ClientDiscLbl;
         private MetroFramework.Controls.MetroTextBox fullNameTxBx;
         private MetroFramework.Controls.MetroButton encreaseItemsBtn;
         private MetroFramework.Controls.MetroButton decreaseQuantityBtn;
         private MetroFramework.Controls.MetroTextBox DiscSumTxBx;
         private MetroFramework.Controls.MetroButton ReturnBtn;
-        private System.Windows.Forms.Label AkciyaLbl;
         private System.Windows.Forms.DataGridViewTextBoxColumn ID;
         private System.Windows.Forms.DataGridViewTextBoxColumn ItemName;
         private System.Windows.Forms.DataGridViewTextBoxColumn Items;
         private System.Windows.Forms.DataGridViewTextBoxColumn Price;
         private System.Windows.Forms.DataGridViewTextBoxColumn PriceDisc;
         private System.Windows.Forms.DataGridViewTextBoxColumn Discount;
-        private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.ListBox listBox1;
         private MetroFramework.Controls.MetroTextBox retNumber;
+        private MetroFramework.Controls.MetroPanel panel1;
+        private MetroFramework.Controls.MetroButton deleteBtn;
+        private System.Windows.Forms.Label AkciyaLbl;
     }
 }

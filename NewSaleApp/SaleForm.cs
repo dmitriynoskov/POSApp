@@ -26,6 +26,10 @@ namespace NewSaleApp
         /// </summary>
         public string StaffBarcode { get; private set; }
 
+        /// <summary>
+        /// Конструктор, принимающий Штрихкод кассира в виде параметра
+        /// </summary>
+        /// <param name="staffCode"></param>
         public SaleForm(string staffCode)
         {
             InitializeComponent();
@@ -114,8 +118,8 @@ namespace NewSaleApp
                         dataGridView1.SelectedRows[0].DefaultCellStyle.BackColor = Color.Yellow;
                     }
 
-                    _accessDL.quantity = (float)this._quantity;
-                    _accessDL.price = priceUpd;
+                    _accessDL.Quantity = (float)_quantity;
+                    _accessDL.Price = priceUpd;
 
                     if (ClientDiscLbl.Text != "Скидка клиента")
                     {
@@ -136,9 +140,9 @@ namespace NewSaleApp
             }
         }
 
-        private void ClientDefine(string _barcode)
+        private void ClientDefine(string barcode)
         {
-            DataSet ds = _accessDL.DefineClient(_barcode);
+            DataSet ds = _accessDL.DefineClient(barcode);
             clientLbl.Text = ds.Tables[0].Rows[0].Field<string>("Name");
 
             if (ds.Tables[0].Rows[0].Field<bool>("Discount"))
@@ -181,7 +185,7 @@ namespace NewSaleApp
 
         private void SaleForm_Load(object sender, EventArgs e)
         {
-            this.Text += "     Продавец: " + _accessDL.GetStaffName(StaffBarcode);
+            Text += "     Продавец: " + _accessDL.GetStaffName(StaffBarcode);
 
             _rashodId = _accessDL.GetRashodID();
             rashodIDTxBx.Text = string.Format("{0:d6}", _rashodId);
@@ -222,12 +226,12 @@ namespace NewSaleApp
             PaymentForm pay = new PaymentForm();
             pay.Total = _total;
             pay.ID = _rashodId;
-            pay.accessDL = this._accessDL;
+            pay.accessDL = _accessDL;
 
             if (pay.ShowDialog() == DialogResult.OK)
             {
                 _save = false;
-                this.Close();
+                Close();
             }
         }
 

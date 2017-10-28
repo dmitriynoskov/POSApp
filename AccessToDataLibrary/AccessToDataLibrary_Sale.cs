@@ -12,9 +12,9 @@ namespace AccessToDataLibrary
     public partial class AccessToDataLibrary
     {
         #region Variables
-        DataSet ds;
-        public float quantity { get; set; }
-        public decimal price { get; set; }
+        DataSet _ds;
+        public float Quantity { get; set; }
+        public decimal Price { get; set; }
 
         bool _exists;
 
@@ -34,27 +34,27 @@ namespace AccessToDataLibrary
         {
             string query = "SELECT * FROM PRODUCT WHERE BARCODE='" + barcode + "' OR ID='" + barcode + "'";
 
-            ds = new DataSet();
+            _ds = new DataSet();
 
             using (SqlConnection con = new SqlConnection(provider.conString))
             {
                 SqlDataAdapter da = new SqlDataAdapter(query, con);
-                da.Fill(ds);
+                da.Fill(_ds);
                 sale.Products.Add(new Product
                 {
-                    ID = int.Parse(ds.Tables[0].Rows[0].ItemArray.GetValue(0).ToString()),
-                    FullName = ds.Tables[0].Rows[0].ItemArray.GetValue(1).ToString(),
-                    Name = ds.Tables[0].Rows[0].ItemArray.GetValue(2).ToString(),
-                    Code = ds.Tables[0].Rows[0].ItemArray.GetValue(3).ToString(),
-                    Color = ds.Tables[0].Rows[0].ItemArray.GetValue(4).ToString(),
-                    Size = ds.Tables[0].Rows[0].ItemArray.GetValue(5).ToString(),
-                    Barcode = ds.Tables[0].Rows[0].ItemArray.GetValue(6).ToString(),
-                    Barcode2 = ds.Tables[0].Rows[0].ItemArray.GetValue(7).ToString(),
-                    Price = decimal.Parse(ds.Tables[0].Rows[0].ItemArray.GetValue(8).ToString())
+                    ID = int.Parse(_ds.Tables[0].Rows[0].ItemArray.GetValue(0).ToString()),
+                    FullName = _ds.Tables[0].Rows[0].ItemArray.GetValue(1).ToString(),
+                    Name = _ds.Tables[0].Rows[0].ItemArray.GetValue(2).ToString(),
+                    Code = _ds.Tables[0].Rows[0].ItemArray.GetValue(3).ToString(),
+                    Color = _ds.Tables[0].Rows[0].ItemArray.GetValue(4).ToString(),
+                    Size = _ds.Tables[0].Rows[0].ItemArray.GetValue(5).ToString(),
+                    Barcode = _ds.Tables[0].Rows[0].ItemArray.GetValue(6).ToString(),
+                    Barcode2 = _ds.Tables[0].Rows[0].ItemArray.GetValue(7).ToString(),
+                    Price = decimal.Parse(_ds.Tables[0].Rows[0].ItemArray.GetValue(8).ToString())
                 });
             }
 
-            return ds;
+            return _ds;
         }
 
         /// <summary>
@@ -94,7 +94,7 @@ namespace AccessToDataLibrary
         /// </summary>
         public void AddProductToRashod()
         {
-            int ID = int.Parse(ds.Tables[0].Rows[0].ItemArray.GetValue(0).ToString());
+            int ID = int.Parse(_ds.Tables[0].Rows[0].ItemArray.GetValue(0).ToString());
 
             string query = "INSERT INTO RASHODSUB (RashodID, ProductID, Quantity, Price, TotalAmount) VALUES (@RashodID, @ProductID, @Quantity, @Price, @TotalAmount)";
 
@@ -103,9 +103,9 @@ namespace AccessToDataLibrary
             {
                 SqlParameter p1 = new SqlParameter("@RashodID", sale.ID);
                 SqlParameter p2 = new SqlParameter("@ProductID", ID);
-                SqlParameter p3 = new SqlParameter("@Quantity", quantity);
-                SqlParameter p4 = new SqlParameter("@Price", price);
-                SqlParameter p5 = new SqlParameter("@TotalAmount", (decimal)quantity * price);
+                SqlParameter p3 = new SqlParameter("@Quantity", Quantity);
+                SqlParameter p4 = new SqlParameter("@Price", Price);
+                SqlParameter p5 = new SqlParameter("@TotalAmount", (decimal)Quantity * Price);
 
                 SqlCommand com = new SqlCommand(query, con);
                 com.Parameters.AddRange(new SqlParameter[5] { p1, p2, p3, p4, p5 });

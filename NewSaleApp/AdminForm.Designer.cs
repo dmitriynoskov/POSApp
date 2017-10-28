@@ -94,6 +94,7 @@
             this.VisaTxBx.Location = new System.Drawing.Point(219, 95);
             this.VisaTxBx.Multiline = true;
             this.VisaTxBx.Name = "VisaTxBx";
+            this.VisaTxBx.ReadOnly = true;
             this.VisaTxBx.Size = new System.Drawing.Size(213, 47);
             this.VisaTxBx.TabIndex = 0;
             this.VisaTxBx.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
@@ -104,6 +105,7 @@
             this.NalTxBx.Location = new System.Drawing.Point(3, 95);
             this.NalTxBx.Multiline = true;
             this.NalTxBx.Name = "NalTxBx";
+            this.NalTxBx.ReadOnly = true;
             this.NalTxBx.Size = new System.Drawing.Size(213, 47);
             this.NalTxBx.TabIndex = 0;
             this.NalTxBx.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
@@ -114,13 +116,14 @@
             this.ItogTxBx.Location = new System.Drawing.Point(179, 15);
             this.ItogTxBx.Multiline = true;
             this.ItogTxBx.Name = "ItogTxBx";
+            this.ItogTxBx.ReadOnly = true;
             this.ItogTxBx.Size = new System.Drawing.Size(253, 47);
             this.ItogTxBx.TabIndex = 0;
             this.ItogTxBx.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // btnSaleReport
             // 
-            this.btnSaleReport.Location = new System.Drawing.Point(515, 117);
+            this.btnSaleReport.Location = new System.Drawing.Point(509, 116);
             this.btnSaleReport.Name = "btnSaleReport";
             this.btnSaleReport.Size = new System.Drawing.Size(281, 74);
             this.btnSaleReport.TabIndex = 2;
