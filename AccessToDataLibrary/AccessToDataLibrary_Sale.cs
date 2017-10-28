@@ -511,7 +511,7 @@ namespace AccessToDataLibrary
         public DataSet DefineReturnSale(string saleID)
         {
             string query =
-                "SELECT R.ID, P.ID, P.FullName, RS.Price, RS.Quantity, RS.TotalAmount, R.Nal, R.TotalAmount, R.VISA, PS.Name" + 
+                "SELECT R.ID, P.ID, P.FullName, RS.Price, RS.Quantity, RS.TotalAmount, R.Nal, R.TotalAmount, R.VISA, PS.Name, PS.DiscountValue" + 
                 " FROM RASHOD as R INNER JOIN RASHODSUB as RS ON R.Id = RS.RashodID INNER JOIN PRODUCT as P ON RS.ProductID = P.Id" +
                 " LEFT JOIN PERSON as PS ON R.ClientID = PS.ID WHERE R.Id = '" + saleID + "'";
 

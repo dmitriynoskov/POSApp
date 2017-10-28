@@ -363,8 +363,11 @@ namespace NewSaleApp
 
                     dataGridView1.Rows.Add(id, fullName, quantity, price, priceUpd);
                 }
-                
 
+                clientLbl.Text = ds1.Tables[0].Rows[0].ItemArray.GetValue(9).ToString();
+                ClientDiscLbl.Text = ds1.Tables[0].Rows[0].ItemArray.GetValue(10).ToString();
+
+                barcodeTxBx.Enabled = false;
             }
         }
 
