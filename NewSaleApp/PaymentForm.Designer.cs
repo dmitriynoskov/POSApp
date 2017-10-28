@@ -91,7 +91,7 @@
             this.VisaChBx.Name = "VisaChBx";
             this.VisaChBx.Size = new System.Drawing.Size(104, 34);
             this.VisaChBx.TabIndex = 4;
-            this.VisaChBx.Text = "VISA";
+            this.VisaChBx.Text = "Visa";
             this.VisaChBx.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.VisaChBx.UseVisualStyleBackColor = true;
             this.VisaChBx.CheckedChanged += new System.EventHandler(this.VisaChBx_CheckedChanged);

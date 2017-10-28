@@ -21,7 +21,7 @@ namespace AccessToDataLibrary
         Sale sale = new Sale();
 
         public bool Nal { get { return sale.Nal; } set { sale.Nal = value; } }
-        public string VISA { get { return sale.VISA; } set { sale.VISA = value; } }
+        public string Visa { get { return sale.VISA; } set { sale.VISA = value; } }
         public decimal MoneyRec { get { return sale.MoneyRec; } set { sale.MoneyRec = value; } }
         #endregion
 
@@ -94,7 +94,7 @@ namespace AccessToDataLibrary
         /// </summary>
         public void AddProductToRashod()
         {
-            int ID = int.Parse(_ds.Tables[0].Rows[0].ItemArray.GetValue(0).ToString());
+            int id = int.Parse(_ds.Tables[0].Rows[0].ItemArray.GetValue(0).ToString());
 
             string query = "INSERT INTO RASHODSUB (RashodID, ProductID, Quantity, Price, TotalAmount) VALUES (@RashodID, @ProductID, @Quantity, @Price, @TotalAmount)";
 
@@ -102,13 +102,13 @@ namespace AccessToDataLibrary
             using (SqlConnection con = new SqlConnection(provider.conString))
             {
                 SqlParameter p1 = new SqlParameter("@RashodID", sale.ID);
-                SqlParameter p2 = new SqlParameter("@ProductID", ID);
+                SqlParameter p2 = new SqlParameter("@ProductID", id);
                 SqlParameter p3 = new SqlParameter("@Quantity", Quantity);
                 SqlParameter p4 = new SqlParameter("@Price", Price);
                 SqlParameter p5 = new SqlParameter("@TotalAmount", (decimal)Quantity * Price);
 
                 SqlCommand com = new SqlCommand(query, con);
-                com.Parameters.AddRange(new SqlParameter[5] { p1, p2, p3, p4, p5 });
+                com.Parameters.AddRange(new [] { p1, p2, p3, p4, p5 });
 
                 SqlDataAdapter da = new SqlDataAdapter(com);
 
@@ -140,7 +140,7 @@ namespace AccessToDataLibrary
         /// Вычисление номера текущего чека
         /// </summary>
         /// <returns>номер чека</returns>
-        public int GetRashodID()
+        public int GetRashodId()
         {
             string query = "Select * FROM RASHOD WHERE Done='False' AND StaffID=" + sale.Staff.ID;
 
@@ -231,17 +231,15 @@ namespace AccessToDataLibrary
         /// </summary>
         private void PerformSaleUpdateStock()
         {
-            string query = "";
-
             using (SqlConnection con = new SqlConnection(provider.conString))
             {
                 con.Open();
 
-                for (int i = 0; i < sale.Products.Count; i++)
+                foreach (Product saleProduct in sale.Products)
                 {
-                    query = "UPDATE STOCK SET Quantity=Quantity-1 WHERE ProductID=" + sale.Products[i].ID;
+                    string query = "UPDATE STOCK SET Quantity=Quantity-1 WHERE ProductID=" + saleProduct.ID;
 
-                    SqlCommand com = new SqlCommand(query,con);
+                    SqlCommand com = new SqlCommand(query, con);
                     com.ExecuteNonQuery();
                 }
             }
@@ -253,13 +251,13 @@ namespace AccessToDataLibrary
         /// </summary>
         private void PerformSaleUpdateRashod()
         {
-            string query = "";
+            string query;
 
             if (_exists)
             {
                 query = "UPDATE RASHOD SET RashodDate='" + sale.RashodDate + "',RashodTime='" + sale.RashodTime + "',Done='" +
                         sale.Done + "',Nal='" + sale.Nal +
-                        "',ClientID=" + sale.Client.ID + ",TotalAmount=@TotSum,MoneyRec=" + sale.MoneyRec + ",VISA='" +
+                        "',ClientID=" + sale.Client.ID + ",TotalAmount=@TotSum,MoneyRec=" + sale.MoneyRec + ",Visa='" +
                         sale.VISA + "',TotalItems=" + sale.TotalItems + " WHERE ID=" + sale.ID;
             }
             else
@@ -441,7 +439,7 @@ namespace AccessToDataLibrary
                 SqlParameter p5 = new SqlParameter("@TotalAmount", (decimal)quantity * price);
 
                 SqlCommand com = new SqlCommand(query, con);
-                com.Parameters.AddRange(new SqlParameter[5] { p1, p2, p3,p4, p5 });
+                com.Parameters.AddRange(new [] { p1, p2, p3,p4, p5 });
 
                 SqlDataAdapter da = new SqlDataAdapter(com);
 
@@ -458,7 +456,7 @@ namespace AccessToDataLibrary
         {
             string query = "SELECT SUM(R.TotalAmount) as Total, (SELECT Sum(TotalAmount) FROM RASHOD WHERE RashodDate='" + date +
                 "' AND Nal='True') as NAL, (SELECT Sum(TotalAmount) FROM RASHOD WHERE RashodDate = '" + date +
-                "' AND Nal = 'FALSE') AS VISA From RASHOD as R WHERE r.RashodDate = '" + date + "' ";
+                "' AND Nal = 'FALSE') AS Visa From RASHOD as R WHERE r.RashodDate = '" + date + "' ";
 
             DataSet ds1 = new DataSet();
 
@@ -513,7 +511,7 @@ namespace AccessToDataLibrary
 
             foreach (DataRow row in ds1.Tables[0].Rows)
             {
-                res.Add(row.ItemArray.GetValue(0).ToString() + "      " + row.ItemArray.GetValue(1).ToString());
+                res.Add(row.ItemArray.GetValue(0) + "      " + row.ItemArray.GetValue(1));
             }
 
             return res;
@@ -522,14 +520,14 @@ namespace AccessToDataLibrary
         /// <summary>
         /// Поиск чека продажи для операции "Возврат"
         /// </summary>
-        /// <param name="saleID">Номер чека продажи</param>
+        /// <param name="saleId">Номер чека продажи</param>
         /// <returns></returns>
-        public DataSet DefineReturnSale(string saleID)
+        public DataSet DefineReturnSale(string saleId)
         {
             string query =
-                "SELECT R.ID, P.ID, P.FullName, RS.Price, RS.Quantity, RS.TotalAmount, R.Nal, R.TotalAmount, R.VISA, PS.Name, PS.DiscountValue" + 
+                "SELECT R.ID, P.ID, P.FullName, RS.Price, RS.Quantity, RS.TotalAmount, R.Nal, R.TotalAmount, R.Visa, PS.Name, PS.DiscountValue" + 
                 " FROM RASHOD as R INNER JOIN RASHODSUB as RS ON R.Id = RS.RashodID INNER JOIN PRODUCT as P ON RS.ProductID = P.Id" +
-                " LEFT JOIN PERSON as PS ON R.ClientID = PS.ID WHERE R.Id = '" + saleID + "'";
+                " LEFT JOIN PERSON as PS ON R.ClientID = PS.ID WHERE R.Id = '" + saleId + "'";
 
             DataSet ds1 = new DataSet();
 

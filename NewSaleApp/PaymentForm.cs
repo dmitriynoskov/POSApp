@@ -26,13 +26,13 @@ namespace NewSaleApp
         {
             if (VisaChBx.Checked)
             {
-                accessDL.VISA = VisaTxBx.Text;
+                accessDL.Visa = VisaTxBx.Text;
                 accessDL.MoneyRec = 0M;
                 accessDL.Nal = false;
             }
             else
             {
-                accessDL.VISA = "Null";
+                accessDL.Visa = "Null";
                 accessDL.Nal = true;
                 accessDL.MoneyRec = decimal.Parse(ReceivedSumTxBx.Text.Trim());
             }

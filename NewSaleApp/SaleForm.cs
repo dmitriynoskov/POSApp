@@ -73,53 +73,7 @@ namespace NewSaleApp
                 }
                 else
                 {
-                    _quantity = 1;
-
-                    quantityTxBx.Text = _quantity.ToString();
-
-                    string id = ds.Tables[0].Rows[0].ItemArray.GetValue(0).ToString();
-                    string fullName = ds.Tables[0].Rows[0].ItemArray.GetValue(1).ToString();
-                    decimal price = decimal.Parse(ds.Tables[0].Rows[0].ItemArray.GetValue(8).ToString());
-                    decimal discountValue = decimal.Parse(ds.Tables[0].Rows[0].ItemArray.GetValue(13).ToString());
-                    decimal priceUpd = price - (price * discountValue / 100);
-
-                    foreach (DataGridViewRow row in dataGridView1.Rows)
-                    {
-                        if (row.Cells["ID"].Value.ToString() == id)
-                        {
-                            _quantity = double.Parse(row.Cells["Items"].Value.ToString()) + 1;
-                            row.Cells["Items"].Value = _quantity;
-                            ToPayTxBx.Text = CountTotal().ToString();
-
-                            _accessDL.UpdateQuantity(int.Parse(id), _quantity, decimal.Parse(row.Cells["PriceDisc"].Value.ToString()));
-
-                            barcodeTxBx.Clear();
-
-                            _quantity = 0;
-
-                            return;
-                        }
-                    }
-
-                    fullNameTxBx.Text = fullName;
-
-                    DataSet ds1 = _accessDL.GroupCheck(id);
-
-                    if (bool.Parse(ds1.Tables[0].Rows[0].ItemArray.GetValue(0).ToString()))
-                    {
-                        priceUpd = priceUpd - (priceUpd * decimal.Parse(ds1.Tables[0].Rows[0].ItemArray.GetValue(1).ToString()) / 100);
-                    }
-
-                    dataGridView1.Rows.Add(id, fullName, _quantity, price, priceUpd, discountValue);
-
-                    if (bool.Parse(ds1.Tables[0].Rows[0].ItemArray.GetValue(0).ToString()))
-                    {
-                        AkciyaLbl.Visible = true;
-                        dataGridView1.SelectedRows[0].DefaultCellStyle.BackColor = Color.Yellow;
-                    }
-
-                    _accessDL.Quantity = (float)_quantity;
-                    _accessDL.Price = priceUpd;
+                    FillProduct(ds);
 
                     if (ClientDiscLbl.Text != "Скидка клиента")
                     {
@@ -137,6 +91,62 @@ namespace NewSaleApp
 
                     _quantity = 0;
                 }
+            }
+        }
+
+        private void FillProduct(DataSet ds)
+        {
+            _quantity = 1;
+
+            quantityTxBx.Text = _quantity.ToString();
+
+            string id = ds.Tables[0].Rows[0].ItemArray.GetValue(0).ToString();
+            string fullName = ds.Tables[0].Rows[0].ItemArray.GetValue(1).ToString();
+            decimal price = decimal.Parse(ds.Tables[0].Rows[0].ItemArray.GetValue(8).ToString());
+            decimal discountValue = decimal.Parse(ds.Tables[0].Rows[0].ItemArray.GetValue(13).ToString());
+            decimal priceUpd = price - (price * discountValue / 100);
+
+            foreach (DataGridViewRow row in dataGridView1.Rows)
+            {
+                if (row.Cells["ID"].Value.ToString() == id)
+                {
+                    _quantity = double.Parse(row.Cells["Items"].Value.ToString()) + 1;
+                    row.Cells["Items"].Value = _quantity;
+                    ToPayTxBx.Text = CountTotal().ToString();
+
+                    _accessDL.UpdateQuantity(int.Parse(id), _quantity, decimal.Parse(row.Cells["PriceDisc"].Value.ToString()));
+
+                    barcodeTxBx.Clear();
+
+                    _quantity = 0;
+
+                    return;
+                }
+            }
+
+            fullNameTxBx.Text = fullName;
+
+            GroupCheck(id, ref priceUpd);
+
+            dataGridView1.Rows.Add(id, fullName, _quantity, price, priceUpd, discountValue);
+
+            _accessDL.Quantity = (float)_quantity;
+            _accessDL.Price = priceUpd;
+        }
+
+        private void GroupCheck(string id, ref decimal priceUpd)
+        {
+            DataSet ds1 = _accessDL.GroupCheck(id);
+
+            if (bool.Parse(ds1.Tables[0].Rows[0].ItemArray.GetValue(0).ToString()))
+            {
+                priceUpd = priceUpd - (priceUpd * decimal.Parse(ds1.Tables[0].Rows[0].ItemArray.GetValue(1).ToString()) / 100);
+            }
+
+            if (bool.Parse(ds1.Tables[0].Rows[0].ItemArray.GetValue(0).ToString()))
+            {
+                AkciyaLbl.Visible = true;
+                dataGridView1.SelectedRows[0].DefaultCellStyle.BackColor = Color.Yellow;
             }
         }
 
@@ -187,7 +197,7 @@ namespace NewSaleApp
         {
             Text += "     Продавец: " + _accessDL.GetStaffName(StaffBarcode);
 
-            _rashodId = _accessDL.GetRashodID();
+            _rashodId = _accessDL.GetRashodId();
             rashodIDTxBx.Text = string.Format("{0:d6}", _rashodId);
 
             FillTheGrid();
