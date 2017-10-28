@@ -454,9 +454,9 @@ namespace AccessToDataLibrary
         /// <returns></returns>
         public DataSet CountMoney(string date)
         {
-            string query = "SELECT SUM(R.TotalAmount) as Total, (SELECT Sum(TotalAmount) FROM RASHOD WHERE RashodDate='" + date +
-                "' AND Nal='True') as NAL, (SELECT Sum(TotalAmount) FROM RASHOD WHERE RashodDate = '" + date +
-                "' AND Nal = 'FALSE') AS Visa From RASHOD as R WHERE r.RashodDate = '" + date + "' ";
+            string query = "SELECT SUM(R.TotalAmount) as Total, (SELECT Sum(TotalAmount) FROM RASHOD WHERE Done='True' AND RashodDate='" + date +
+                "' AND Nal='True') as NAL, (SELECT Sum(TotalAmount) FROM RASHOD WHERE Done='True' AND RashodDate = '" + date +
+                "' AND Nal = 'FALSE') AS Visa From RASHOD as R WHERE r.RashodDate = '" + date + "' AND Done='True'";
 
             DataSet ds1 = new DataSet();
 

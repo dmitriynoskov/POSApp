@@ -37,6 +37,7 @@
             this.NalTxBx = new System.Windows.Forms.TextBox();
             this.ItogTxBx = new System.Windows.Forms.TextBox();
             this.btnSaleReport = new System.Windows.Forms.Button();
+            this.btnStaffReport = new System.Windows.Forms.Button();
             this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -66,7 +67,7 @@
             this.label3.AutoSize = true;
             this.label3.Location = new System.Drawing.Point(297, 75);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(38, 17);
+            this.label3.Size = new System.Drawing.Size(35, 17);
             this.label3.TabIndex = 1;
             this.label3.Text = "Visa";
             // 
@@ -131,11 +132,22 @@
             this.btnSaleReport.UseVisualStyleBackColor = true;
             this.btnSaleReport.Click += new System.EventHandler(this.btnSaleReport_Click);
             // 
+            // btnStaffReport
+            // 
+            this.btnStaffReport.Location = new System.Drawing.Point(509, 202);
+            this.btnStaffReport.Name = "btnStaffReport";
+            this.btnStaffReport.Size = new System.Drawing.Size(281, 74);
+            this.btnStaffReport.TabIndex = 2;
+            this.btnStaffReport.Text = "Отчет по продавцам за день";
+            this.btnStaffReport.UseVisualStyleBackColor = true;
+            this.btnStaffReport.Click += new System.EventHandler(this.btnStaffReport_Click);
+            // 
             // AdminForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1273, 754);
+            this.Controls.Add(this.btnStaffReport);
             this.Controls.Add(this.btnSaleReport);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.dateTimePicker1);
@@ -159,5 +171,6 @@
         private System.Windows.Forms.TextBox NalTxBx;
         private System.Windows.Forms.TextBox ItogTxBx;
         private System.Windows.Forms.Button btnSaleReport;
+        private System.Windows.Forms.Button btnStaffReport;
     }
 }

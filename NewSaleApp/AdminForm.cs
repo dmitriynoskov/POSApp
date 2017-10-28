@@ -66,5 +66,11 @@ namespace NewSaleApp
             ItemsPerDaySale saleRep = new ItemsPerDaySale(dateTimePicker1.Value.ToShortDateString());
             saleRep.ShowDialog();
         }
+
+        private void btnStaffReport_Click(object sender, EventArgs e)
+        {
+            StaffSaleReport saleReport = new StaffSaleReport(dateTimePicker1.Value.ToShortDateString());
+            saleReport.ShowDialog();
+        }
     }
 }

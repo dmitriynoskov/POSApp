@@ -1,32 +1,26 @@
-﻿using CrystalDecisions.CrystalReports.Engine;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
-using System.Data.SqlClient;
 using System.Drawing;
 using System.Linq;
-using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using CrystalDecisions.Shared;
 using NewSaleApp.Reports;
-
 
 namespace NewSaleApp
 {
-    public partial class ItemsPerDaySale : Form
+    public partial class StaffSaleReport : Form
     {
         private string _rashodDate;
-
-        public ItemsPerDaySale(string date)
+        public StaffSaleReport(string date)
         {
             InitializeComponent();
             _rashodDate = date;
         }
 
-        private void ItemsPerDaySale_Load(object sender, EventArgs e)
+        private void StaffSaleReport_Load(object sender, EventArgs e)
         {
             BillDisplay();
         }
@@ -35,7 +29,7 @@ namespace NewSaleApp
         {
             try
             {
-                ItemsPerDay rep = new ItemsPerDay();
+                StaffReport rep = new StaffReport();
                 rep.SetParameterValue("Date", _rashodDate);
                 crystalReportViewer1.ReportSource = rep;
                 crystalReportViewer1.Refresh();

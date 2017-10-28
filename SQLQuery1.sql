@@ -42,10 +42,10 @@ LEFT JOIN GROUPS as G ON P.TypeID=G.ID
 LEFT JOIN GROUPS as G2 ON p.GroupID=G2.ID
 LEFT JOIN GROUPS as G3 ON p.SubGroupID=g3.ID
 
-SELECT SUM(R.TotalAmount) as Total, (SELECT Sum(TotalAmount) FROM RASHOD WHERE RashodDate='01.10.2017' AND Nal='True') as NAL, 
-(SELECT Sum(TotalAmount) FROM RASHOD WHERE RashodDate='01.10.2017' AND Nal='FALSE') AS VISA
+SELECT SUM(R.TotalAmount) as Total, (SELECT Sum(TotalAmount) FROM RASHOD WHERE Done='True' AND RashodDate='28.10.2017' AND Nal='True') as NAL, 
+(SELECT Sum(TotalAmount) FROM RASHOD WHERE Done='True' AND RashodDate='28.10.2017' AND Nal='FALSE') AS VISA
 From RASHOD as R
-WHERE r.RashodDate='01.10.2017'
+WHERE r.RashodDate='28.10.2017' AND Done='True' 
 
 SELECT P.ID, P.FullName, G.Akciya, G.AkciyaValue
 From PRODUCT as P
@@ -71,3 +71,9 @@ INNER JOIN RASHODSUB as RS ON R.Id=RS.RashodID
 INNER JOIN PRODUCT as P ON RS.ProductID=P.Id
 LEFT JOIN PERSON as PS ON R.ClientID=PS.ID
 WHERE R.Id='20'
+
+SELECT PS.Name, SUM(R.TotalItems), SUM(R.TotalAmount)
+FROM RASHOD as R
+JOIN PERSON as PS ON R.StaffID=PS.Id
+WHERE R.RashodDate='28.10.2017' AND R.Done='True'
+GROUP BY PS.Name
