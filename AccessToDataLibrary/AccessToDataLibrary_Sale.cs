@@ -249,7 +249,7 @@ namespace AccessToDataLibrary
 
         /// <summary>
         /// Обновить данные в таблице RASHOD
-        /// при совершении покупки
+        /// при совершении покупки или сохранении нерасчитанного чека
         /// </summary>
         private void PerformSaleUpdateRashod()
         {
@@ -298,31 +298,7 @@ namespace AccessToDataLibrary
             sale.RashodDate = DateTime.Now.Date.ToShortDateString();
             sale.RashodTime = DateTime.Now.ToShortTimeString();
 
-            string query = "";
-            if (_exists)
-            {
-                query = "UPDATE RASHOD SET RashodDate='" + sale.RashodDate + "',RashodTime='" + sale.RashodTime + "',Done='" + sale.Done + "',Nal='" + sale.Nal +
-                    "',TotalAmount=@TotSum,MoneyRec=" + sale.MoneyRec + ",VISA='" + sale.VISA + "',TotalItems=" + sale.TotalItems + " WHERE ID=" + sale.ID;
-            }
-            else
-            {
-                query = "INSERT INTO RASHOD VALUES (" + sale.ID + ",'" + sale.RashodDate + "','" + sale.RashodTime + "','" + sale.Done + "','" + sale.Nal + "'," +
-                    sale.Staff.ID + "," + sale.Client.ID + ",@TotSum,0,NULL," + sale.TotalItems + ",'False')";
-            }
-
-            DataSet ds1 = new DataSet();
-
-            using (SqlConnection con = new SqlConnection(provider.conString))
-            {
-                SqlParameter p1 = new SqlParameter("@TotSum", sale.TotalAmount);
-
-                SqlCommand com = new SqlCommand(query, con);
-                com.Parameters.Add(p1);
-
-                SqlDataAdapter da = new SqlDataAdapter(com);
-
-                da.Fill(ds1);
-            }
+            PerformSaleUpdateRashod();
         }
 
         /// <summary>
