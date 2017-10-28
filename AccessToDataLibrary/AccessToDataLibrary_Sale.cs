@@ -16,7 +16,7 @@ namespace AccessToDataLibrary
         public float quantity { get; set; }
         public decimal price { get; set; }
 
-        bool exists;
+        bool _exists;
 
         Sale sale = new Sale();
 
@@ -154,7 +154,7 @@ namespace AccessToDataLibrary
                 if (ds1.Tables[0].Rows.Count > 0)
                 {
                     sale.ID = ds1.Tables[0].Rows[0].Field<int>("Id");
-                    exists = true;
+                    _exists = true;
                 }
                 else
                 {
@@ -172,7 +172,7 @@ namespace AccessToDataLibrary
                         sale.ID = 1;
                     }
 
-                    exists = false;
+                    _exists = false;
                 }
             }
 
@@ -220,7 +220,7 @@ namespace AccessToDataLibrary
             sale.RashodTime = DateTime.Now.ToShortTimeString();
             string query = "";
 
-            if (exists)
+            if (_exists)
             {
                 query = "UPDATE RASHOD SET RashodDate='" + sale.RashodDate + "',RashodTime='" + sale.RashodTime + "',Done='" + sale.Done + "',Nal='" + sale.Nal +
                     "',ClientID=" + sale.Client.ID + ",TotalAmount=@TotSum,MoneyRec=" + sale.MoneyRec + ",VISA='" + sale.VISA + "',TotalItems=" + sale.TotalItems + " WHERE ID=" + sale.ID;
@@ -256,11 +256,12 @@ namespace AccessToDataLibrary
             sale.Nal = false;
 
             CountTotal();
+
             sale.RashodDate = DateTime.Now.Date.ToShortDateString();
             sale.RashodTime = DateTime.Now.ToShortTimeString();
 
             string query = "";
-            if (exists)
+            if (_exists)
             {
                 query = "UPDATE RASHOD SET RashodDate='" + sale.RashodDate + "',RashodTime='" + sale.RashodTime + "',Done='" + sale.Done + "',Nal='" + sale.Nal +
                     "',TotalAmount=@TotSum,MoneyRec=" + sale.MoneyRec + ",VISA='" + sale.VISA + "',TotalItems=" + sale.TotalItems + " WHERE ID=" + sale.ID;
@@ -345,7 +346,8 @@ namespace AccessToDataLibrary
             {
                 SqlDataAdapter da = new SqlDataAdapter(query, con);
                 da.Fill(ds1);
-                sale.Products.Add(new Product()
+
+                sale.Products.Add(new Product
                 {
                     ID = int.Parse(ds1.Tables[0].Rows[0].ItemArray.GetValue(0).ToString()),
                     FullName = ds1.Tables[0].Rows[0].ItemArray.GetValue(1).ToString(),
@@ -376,13 +378,13 @@ namespace AccessToDataLibrary
                 com.ExecuteNonQuery();
             }
 
-            var product = from prod in sale.Products
-                where prod.ID == id
-                select prod;
-
             for (int i = 0; i < sale.Products.Count; i++)
             {
-                sale.Products.Remove(product as Product);
+                if (sale.Products[i].ID == id)
+                {
+                    sale.Products.RemoveAt(i);
+                    --i;
+                }
             }
         }
 

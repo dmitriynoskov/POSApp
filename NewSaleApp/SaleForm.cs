@@ -24,7 +24,7 @@ namespace NewSaleApp
         /// <summary>
         /// Штрих код кассира
         /// </summary>
-        public string StaffBarcode { get; set; }
+        public string StaffBarcode { get; private set; }
 
         public SaleForm(string staffCode)
         {
