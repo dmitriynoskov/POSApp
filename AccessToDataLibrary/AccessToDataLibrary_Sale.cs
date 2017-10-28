@@ -216,19 +216,58 @@ namespace AccessToDataLibrary
             sale.Done = true;
 
             CountTotal();
+
             sale.RashodDate = DateTime.Now.Date.ToShortDateString();
             sale.RashodTime = DateTime.Now.ToShortTimeString();
+
+            PerformSaleUpdateRashod();
+            PerformSaleUpdateStock();
+
+            sale.ID = 0;
+        }
+
+        /// <summary>
+        /// Внесение изменений в таблицу STOCK при совершении покупки
+        /// </summary>
+        private void PerformSaleUpdateStock()
+        {
+            string query = "";
+
+            using (SqlConnection con = new SqlConnection(provider.conString))
+            {
+                con.Open();
+
+                for (int i = 0; i < sale.Products.Count; i++)
+                {
+                    query = "UPDATE STOCK SET Quantity=Quantity-1 WHERE ProductID=" + sale.Products[i].ID;
+
+                    SqlCommand com = new SqlCommand(query,con);
+                    com.ExecuteNonQuery();
+                }
+            }
+        }
+
+        /// <summary>
+        /// Обновить данные в таблице RASHOD
+        /// при совершении покупки
+        /// </summary>
+        private void PerformSaleUpdateRashod()
+        {
             string query = "";
 
             if (_exists)
             {
-                query = "UPDATE RASHOD SET RashodDate='" + sale.RashodDate + "',RashodTime='" + sale.RashodTime + "',Done='" + sale.Done + "',Nal='" + sale.Nal +
-                    "',ClientID=" + sale.Client.ID + ",TotalAmount=@TotSum,MoneyRec=" + sale.MoneyRec + ",VISA='" + sale.VISA + "',TotalItems=" + sale.TotalItems + " WHERE ID=" + sale.ID;
+                query = "UPDATE RASHOD SET RashodDate='" + sale.RashodDate + "',RashodTime='" + sale.RashodTime + "',Done='" +
+                        sale.Done + "',Nal='" + sale.Nal +
+                        "',ClientID=" + sale.Client.ID + ",TotalAmount=@TotSum,MoneyRec=" + sale.MoneyRec + ",VISA='" +
+                        sale.VISA + "',TotalItems=" + sale.TotalItems + " WHERE ID=" + sale.ID;
             }
             else
             {
-                query = "INSERT INTO RASHOD VALUES (" + sale.ID + ",'" + sale.RashodDate + "','" + sale.RashodTime + "','" + sale.Done + "','" + sale.Nal + "'," +
-                        sale.Staff.ID + "," + sale.Client.ID + ",@TotSum," + sale.MoneyRec + ",'" + sale.VISA + "'," + sale.TotalItems + ",'False')";
+                query = "INSERT INTO RASHOD VALUES (" + sale.ID + ",'" + sale.RashodDate + "','" + sale.RashodTime + "','" +
+                        sale.Done + "','" + sale.Nal + "'," +
+                        sale.Staff.ID + "," + sale.Client.ID + ",@TotSum," + sale.MoneyRec + ",'" + sale.VISA + "'," +
+                        sale.TotalItems + ",'False')";
             }
 
             DataSet ds1 = new DataSet();
@@ -244,7 +283,6 @@ namespace AccessToDataLibrary
 
                 da.Fill(ds1);
             }
-            sale.ID = 0;
         }
 
         /// <summary>
